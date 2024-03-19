@@ -39,3 +39,19 @@ const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+const tasksDiv = document.getElementById('tasks');
+
+fetch('/tasks')
+  .then(response => response.json())
+  .then(tasks => {
+    tasks.forEach(task => {
+      const taskDiv = document.createElement('div');
+      taskDiv.className = 'task';
+      taskDiv.innerHTML = `
+        <h3>${task.name}</h3>
+        <p>${task.description}</p>
+        <p>Due Date: ${task.dueDate}</p>
+      `;
+      tasksDiv.appendChild(taskDiv);
+    });
+  });
